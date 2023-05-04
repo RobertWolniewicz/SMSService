@@ -11,7 +11,8 @@ namespace SMSService.Core.Repositories
         {
             using (var context = new AppDb())
             {
-                return context.Invoices.Include(i => i.SendingInformation).Where(i => (i.IsPay == false) && (i.SendingInformation.IsSend == false)).ToList();
+                return context.Invoices.Include(i => i.SendingInformation).Where(i =>
+                    !i.IsPay && !i.SendingInformation.IsSend).ToList();
             }
         }
 
@@ -19,7 +20,7 @@ namespace SMSService.Core.Repositories
         {
             using (var context = new AppDb())
             {
-                return context.Invoices.Where(i => (i.IsPay == true) && (i.SendingInformation.IsThanksSend == false)).ToList();
+                return context.Invoices.Where(i =>i.IsPay&& i.SendingInformation.IsThanksSend).ToList();
             }
         }
 
